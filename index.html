@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+  <meta charset="UTF-8">
+   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+  <link rel="apple-touch-startup-image" href="./launch.png">
+<html lang="zh-CN">
+<script type="text/javascript" src="../js/eip.js"></script>
+<script>
+
+
+    var Terminal = {
+            // 辨别移动终端类型
+            platform: function () {
+                var u = navigator.userAgent, app = navigator.appVersion;
+                return {
+                    // android终端或者uc浏览器
+                    android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1,
+                    // 是否为iPhone或者QQHD浏览器
+                    iPhone: u.indexOf('iPhone') > -1,
+                    // 是否iPad
+                    iPad: u.indexOf('iPad') > -1
+                };
+            }(),
+            // 辨别移动终端的语言：zh-cn、en-us、ko-kr、ja-jp...
+            language: (navigator.browserLanguage || navigator.language).toLowerCase()
+        }
+function callNative(name,param){
+
+
+// window.webkit.messageHandlers.saveFile.postMessage('https://www.baidu.com/');
+
+  var json = JSON.stringify({
+    "method":name,
+    "param":param 
+  });
+ window.prompt(json);
+//alert(json);
+//     if (Terminal.platform.android) {//当前设备是android
+
+// //调起android原生的扫码功能
+
+//  window.nativeApp.postMessage(json);
+      
+//     }else{
+  
+//       window.webkit.messageHandlers.app.postMessage(json);
+//     }
+
+}
+function callNativeCallBack(name,result){
+
+}
+
+// window.wxLoginCallBack = (json){
+//   alert("微信返回的数据"+json);//json数据为{"access_token":"XXX","openid":"XXXX","unionid":"XXXXX"}
+// }
+
+
+
+ 
+</script>
+<script>
+
+
+function callPay(){
+  // alert("123");
+ window.nativeApp.callPay("7929c5653a390d6846ffbec8258b08f7","index#1=1","1514864130945716225");
+}
+
+
+  function getCode() {
+
+
+
+    // var codeRt = window.prompt("{\"method\":\"share\",\"param\":\"\"}");
+    // alert(codeRt);
+//     var str = window.iTron.getCurrentChainNode();
+//       var input = document.createElement("input");
+//             input.value = str;
+//             document.body.appendChild(input);
+//             input.select();
+//             input.setSelectionRange(0, input.value.length), document.execCommand('Copy');
+//             document.body.removeChild(input);
+     // alert("原生传过来的str：" + codeRt);
+// window.location.href="coralshop://order?id=173"; 
+
+  
+//     if (Terminal.platform.android) {//当前设备是android
+
+// //调起android原生的扫码功能
+
+//     androidJs.getCode();
+      
+//     }else{
+  
+      window.webkit.messageHandlers.tabShow.postMessage("0");
+//     }
+  }
+
+//当原生端扫码完成后会自动调用此方法
+  function codeResult(code) {
+
+
+        alert("原生传过来的code：" + code);
+    
+  }
+  //当原生端扫码完成后会自动调用此方法
+  function wxlogin() {
+
+//     if (Terminal.platform.android) {//当前设备是android
+
+// //调起android原生的扫码功能
+
+ // window.android.getWxLoginInfo("");
+
+      
+//     }else{
+  
+window.webkit.messageHandlers.getWxLoginInfo.postMessage("");
+
+    // }
+
+
+    
+  }
+
+  function showTab(str){
+          window.webkit.messageHandlers.tabShow.postMessage(str);
+  }
+
+ async function getLoaction() {
+
+   var rt = await window.nativeApp.getCurrentLocation(false);
+  // window.nativeApp.toast(rt);
+    alert(rt);
+
+  }
+   async function getLoactionSync() {
+ setTimeout(() => {
+   var rt = callNative("getLocation");
+      }, 1000)
+
+
+
+  }
+  
+  
+   async function getToken() {
+
+   var rt = await window.nativeApp.getToken();
+  window.nativeApp.toast(rt);
+
+  }
+     async function login() {
+
+   var rt = await window.nativeApp.login();
+  window.nativeApp.toast(rt);
+
+  }
+     async function backPressed() {
+
+   var rt = await window.nativeApp.backPressed();
+
+
+  }
+     async function tel(param) {
+
+
+   var rt = await window.nativeApp.tel(param);
+
+
+  }
+       async function loginOut(param) {
+
+   var rt = await window.nativeApp.loginOut(param);
+
+
+  }
+
+
+    async function changeStatusBarColor(param) {
+
+    window.android.changeStatusBarColor(param);
+
+
+  }
+     async function codeScan(param) {
+var json = JSON.stringify({
+    "method":"getQrCode",
+    "param":"123123\n123123" 
+  });
+   // var rt = await window.nativeApp.codeScan(param);
+   var aa = window.prompt(json);
+      var div = document.getElementById("show-content");
+          div.innerText = aa;
+     // window.nativeApp.toast(rt);
+
+  }
+     async function wxPay(param) {
+
+   var rt = await window.nativeApp.wxPay(param);
+
+
+  }
+
+  function showTab(str){
+          window.webkit.messageHandlers.tabShow.postMessage(str);
+  }
+    function checkEth(){
+      var aa =  window.ethereum.isHashWallet;
+          var div = document.getElementById("show-content");
+          div.innerText = aa;
+  }
+  async function authEth(){
+      var aa =  await window.ethereum.enable();
+          var div = document.getElementById("show-content");
+          div.innerText = aa;
+  }
+  async function authTrx(){
+    var div = document.getElementById("show-content");
+   alert(window.tronWeb.defaultAddress.base58);
+          
+  }
+
+  async function startContinuousLocation() {
+
+    var param = {
+  "locationPurpose":"Sport",
+  "interval":2000,
+  "isNeedAddress":true,
+  "locationMode":"Battery_Saving",
+  "gpsFirst":false,
+  "httpTimeOut":30000,
+  "locationCacheEnable":true,
+  "geoLanguage":"DEFAULT",
+  "mockEnable":true
+};
+     window.nativeApp.startContinuousLocation(param, function(info){
+          window.nativeApp.toast(info);
+          // alert(info);
+       });   
+
+  }
+
+  async function continuousLocation(param) {
+    window.nativeApp.continuousLocation(param);
+  }
+  async function stopContinuousLocation() {
+    window.nativeApp.stopContinuousLocation();
+  }
+     function changeWalletEth(){
+      var aa =  window.changeWallet("HBC");
+          var div = document.getElementById("show-content");
+          div.innerText = aa;
+  }
+      function changeWalletTRX(){
+      var aa =  window.changeWallet("TRON");
+          var div = document.getElementById("show-content");
+          div.innerText = aa;
+  }
+  function writeObj(obj){ 
+ var description = ""; 
+ for(var i in obj){ 
+  var property=obj[i]; 
+  description+=i+" = "+property+"\n"; 
+ } 
+ alert(description); 
+} 
+</script>
+<body background="#ff0000">
+
+  <div id="show-content">
+    
+  </div>
+  <div>
+    <strong style="background: #f6f6f6;border-radius: 4px;padding:4px;margin-right: 5px">违法违建</strong><strong style="background: #f6f6f6;border-radius: 4px;padding:4px;margin-right: 5px">城镇退伍士兵</strong>
+  </div>
+  <button onclick="callNative('mapNavigation',{'ll':'30.5,110.002','address':'xxxxxx','start_address':'zzzzzz',})">点我打开导航</button> 
+    <button onclick="callNative('tel',{'phone':'18299999999'})">点我打电话</button> 
+  <strong style="background: #f6f6f6;border-radius: 4px;padding:4px;margin-right: 5px">违法违建</strong><strong style="background: #f6f6f6;border-radius: 4px;padding:4px;margin-right: 5px">城镇退伍士兵</strong>
+  <a href="weixin://dl/business/?t= *TICKET*">点我进百度</a>
+  <button onclick="getCode()">点我获取经纬度</button> 
+  <a href="mepro://com.js.wallet/action?to=invite&data=ANT24958dbfc26e3b8d5f69b0347b47828ce865cd43">打开app</a>
+
+  <div><a style="text-shadow:0px 0px 4px  1 #000; font-size: 30px">文本阴影效果！</a></div>
+  <button onclick="showTab('1')">显示</button> 
+  <button onclick="showTab('0')">隐藏</button> 
+  <button onclick="wxlogin()">微信登录</button> 
+  <br/>
+  <button onclick="getLoaction()">获取经纬度</button> 
+  <br/>
+<!--    <button onclick="startContinuousLocation()">开始连续获取经纬度</button> 
+  <br/>
+    <button onclick="stopContinuousLocation()">关闭连续获取经纬度</button> 
+  <br/> -->
+     <br/>
+    <button onclick="continuousLocation(true)">开启定位</button> 
+    <br/>   <br/>
+    <button onclick="continuousLocation(false)">关闭定位</button> 
+    <br/>   <br/>
+
+    <button onclick="getLoactionSync()">同步获取经纬度</button> 
+  <br/>
+  <button onclick="getToken()">获取token</button> 
+  <br/>
+  <button onclick="login()">登录</button> 
+  <br/>
+  <button onclick="backPressed()">返回</button> 
+  <br/>
+  <button onclick="tel('19222222222')">打电话</button> 
+  <br/>
+
+  <button onclick="loginOut()">退出</button> 
+  <br/>
+
+  <button onclick="codeScan()">扫码</button> 
+  <br/>
+
+  <a href="hash://com.hashatlas.wallet/action?to=invite&data=0x123123123123123123123123">点我进hash邀请</a>
+  <br/>
+
+  <button onclick="wxPay()">微信支付</button> <br/>
+
+  <br/>
+
+    <button onclick="callPay()">龙支付</button>  <br/>
+
+    <button onclick="callNative('openWx',{'phone':'18299999999'})">打开微信</button> 
+  <br/>
+  <button onclick="changeStatusBarColor('#ffff0000')">改变状态栏颜色1</button> 
+  <button onclick="changeStatusBarColor('#ff00ffFF')">改变状态栏颜色2</button> 
+  <br/>
+
+  <a href="https://www.baiduu.com">点我进百度</a> <br/>
+
+
+
+      <button onclick="timeoutTest()">测试延迟</button> 
+  <br/>
+  <a href="tel:11111111111">点击可拨打电话：11111111111</a>
+  <br/>
+</body>
+
+
+</html>
